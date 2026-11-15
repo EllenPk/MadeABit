@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaMicrophone, FaStop, FaFileAudio, FaDownload } from 'react-icons/fa6';
 import { Receptor } from '../lib/receptor.js';
-import { abrirMicrofono, leerArchivo, aWav } from '../lib/audio.js';
+import { abrirMicrofono, leerArchivo, aWav, listarMicrofonos } from '../lib/audio.js';
 import { recibir as recibirSenal, FS } from '../lib/modem.js';
 import Cascada from './Cascada.js';
 import Mensaje from './Mensaje.js';
@@ -19,6 +19,10 @@ import Mensaje from './Mensaje.js';
  *   - Volumen: qué tan fuerte llega el sonido al micrófono.
  *   - Inicio: qué tanto se parece lo escuchado al "fiuuu" de inicio (debe pasar la raya).
  *   - "Descargar lo que escuché": guarda los últimos 30 s del micrófono en un .wav.
+ *
+ * Si el micrófono entrega silencio total (pasa en algunos portátiles cuando se pide el
+ * sonido "sin filtros"), a los 2 segundos se vuelve a abrir solo en modo normal.
+ * También se puede escoger qué micrófono usar.
  */
 const GUARDAR_SEGUNDOS = 30;
 export default function Recibir() {
@@ -30,11 +34,13 @@ export default function Recibir() {
   const [medidor, setMedidor] = useState({ volumen: 0, calidad: 0, rho: 0 });
   const microfono = useRef(null);
   const grabacion = useRef([]); // bloques recientes del micrófono (para descargar)
+  const [microfonos, setMicrofonos] = useState([]);
+  const [elegido, setElegido] = useState('');
 
   // guarda un resultado al inicio de la lista
   const anotar = (r, origen) => setMensajes((m) => [{ ...r, origen, hora: new Date() }, ...m].slice(0, 8));
 
-  async function empezar() {
+  async function empezar(dispositivo = elegido, crudo = true) {
     try {
       grabacion.current = [];
       const receptor = new Receptor({
@@ -54,19 +60,48 @@ export default function Recibir() {
         },
       });
       let pendiente = 0;
-      microfono.current = await abrirMicrofono((bloque, pico) => {
-        // se guardan los últimos 30 s por si hay que revisar qué se escuchó
-        grabacion.current.push(bloque);
-        pendiente += bloque.length;
-        while (pendiente > GUARDAR_SEGUNDOS * FS) pendiente -= grabacion.current.shift().length;
-        setMedidor((m) => ({ ...m, volumen: Math.max(pico, m.volumen * 0.85) }));
-        receptor.agregar(bloque);
-      });
-      setAnalizador(microfono.current.analizador);
+      let picoMaximo = 0;
+      let muestras = 0;
+      const mic = await abrirMicrofono(
+        (bloque, pico) => {
+          // se guardan los últimos 30 s por si hay que revisar qué se escuchó
+          grabacion.current.push(bloque);
+          pendiente += bloque.length;
+          while (pendiente > GUARDAR_SEGUNDOS * FS) pendiente -= grabacion.current.shift().length;
+          setMedidor((m) => ({ ...m, volumen: Math.max(pico, m.volumen * 0.85) }));
+          receptor.agregar(bloque);
+
+          // ¿el micrófono entrega silencio total? → se reabre en modo normal
+          picoMaximo = Math.max(picoMaximo, pico);
+          muestras += bloque.length;
+          if (crudo && muestras > 2 * FS && picoMaximo === 0 && microfono.current === mic) {
+            mic.detener();
+            setEstado('Tu micrófono no entrega sonido sin filtros; probando en modo normal…');
+            empezar(dispositivo, false);
+          }
+        },
+        { dispositivo, crudo },
+      );
+      microfono.current = mic;
+      setAnalizador(mic.analizador);
       setEscuchando(true);
-      setEstado('Escuchando… pon a sonar un mensaje cerca.');
+      setEstado(`Escuchando${crudo ? '' : ' (modo normal)'} con «${mic.nombre || 'micrófono'}»… pon a sonar un mensaje cerca.`);
+      setMicrofonos(await listarMicrofonos());
     } catch (e) {
-      setEstado('No se pudo abrir el micrófono. Revisa el permiso del navegador (y que la página esté en https o localhost).');
+      setEstado(
+        e?.name === 'NotAllowedError'
+          ? 'El navegador no dio permiso para el micrófono. Toca el candado de la barra de direcciones y permítelo.'
+          : 'No se pudo abrir el micrófono. Revisa que esté conectado y que la página esté en https o localhost.',
+      );
+    }
+  }
+
+  function cambiarMicrofono(id) {
+    setElegido(id);
+    if (microfono.current) {
+      microfono.current.detener();
+      microfono.current = null;
+      empezar(id, true);
     }
   }
 
@@ -124,7 +159,7 @@ export default function Recibir() {
             <FaStop /> Dejar de escuchar
           </button>
         ) : (
-          <button className="boton" onClick={empezar}>
+          <button className="boton" onClick={() => empezar()}>
             <FaMicrophone /> Escuchar
           </button>
         )}
@@ -138,6 +173,20 @@ export default function Recibir() {
           <input type="file" accept="audio/*" onChange={abrirArchivo} />
         </label>
       </div>
+
+      {microfonos.length > 1 && (
+        <label className="selector">
+          Micrófono:
+          <select value={elegido} onChange={(e) => cambiarMicrofono(e.target.value)}>
+            <option value="">Predeterminado</option>
+            {microfonos.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.nombre}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       <p className="estado">{estado}</p>
 

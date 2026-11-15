@@ -291,6 +291,27 @@ textarea:focus,
   margin-top: 4px;
 }
 
+/* selector de micrófono */
+.selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--suave);
+}
+
+.selector select {
+  flex: 1;
+  min-width: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font: inherit;
+}
+
 /* medidores de volumen y de inicio (para diagnosticar) */
 .medidores {
   display: grid;
