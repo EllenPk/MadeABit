@@ -14,7 +14,7 @@ import Espectrograma from './Espectrograma.js';
  * sonido (cada rayita horizontal es un tono = 4 bits).
  */
 export default function Enviar() {
-  const [texto, setTexto] = useState('Hola, estás escuchando este mensaje por medio de bits');
+  const [texto, setTexto] = useState('Uno dos tres prueba');
   const [avance, setAvance] = useState(null);
   const [senal, setSenal] = useState(null);
 
