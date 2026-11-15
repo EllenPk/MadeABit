@@ -32,6 +32,9 @@ export default function Recibir() {
   const [mensajes, setMensajes] = useState([]);
   const [analizador, setAnalizador] = useState(null);
   const [medidor, setMedidor] = useState({ volumen: 0, calidad: 0, rho: 0 });
+  // Los valores de los medidores se anotan aquí (sin redibujar la página) y se muestran
+  // 8 veces por segundo; redibujar con cada bloque del micrófono hacía todo más lento.
+  const medidorVivo = useRef({ volumen: 0, calidad: 0, rho: 0 });
   const microfono = useRef(null);
   const grabacion = useRef([]); // bloques recientes del micrófono (para descargar)
   const [microfonos, setMicrofonos] = useState([]);
@@ -44,7 +47,7 @@ export default function Recibir() {
     try {
       grabacion.current = [];
       const receptor = new Receptor({
-        alBuscar: ({ calidad, rho }) => setMedidor((m) => ({ ...m, calidad, rho })),
+        alBuscar: ({ calidad, rho }) => Object.assign(medidorVivo.current, { calidad, rho }),
         alDetectar: (r) => {
           setEstado(`¡Se oyó el inicio de un mensaje! (calidad ${r.calidad.toFixed(0)})`);
           setAvance(0);
@@ -68,7 +71,8 @@ export default function Recibir() {
           grabacion.current.push(bloque);
           pendiente += bloque.length;
           while (pendiente > GUARDAR_SEGUNDOS * FS) pendiente -= grabacion.current.shift().length;
-          setMedidor((m) => ({ ...m, volumen: Math.max(pico, m.volumen * 0.85) }));
+          const m = medidorVivo.current;
+          m.volumen = Math.max(pico, m.volumen * 0.85);
           receptor.agregar(bloque);
 
           // ¿el micrófono entrega silencio total? → se reabre en modo normal
@@ -147,6 +151,13 @@ export default function Recibir() {
   }
 
   useEffect(() => () => microfono.current?.detener(), []); // apaga el micrófono al salir
+
+  // pasa los medidores a la pantalla cada 125 ms mientras se escucha
+  useEffect(() => {
+    if (!escuchando) return;
+    const reloj = setInterval(() => setMedidor({ ...medidorVivo.current }), 125);
+    return () => clearInterval(reloj);
+  }, [escuchando]);
 
   return (
     <section className="tarjeta">

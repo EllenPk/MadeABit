@@ -30,20 +30,31 @@ export default function Cascada({ analizador }) {
     const x = (f) => (f / F_MAX) * W;
     let animacion;
 
-    const dibujar = () => {
-      analizador.getByteFrequencyData(datos);
-      ctx.drawImage(canvas, 0, 0, W, H - 2, 0, 2, W, H - 2); // baja todo 2 píxeles
-      for (let k = 0; k < bins; k++) {
-        const v = datos[k] / 255;
-        ctx.fillStyle = `rgb(${20 + 235 * v}, ${12 + 90 * v * v + 140 * v ** 4}, ${40 + 120 * v})`;
-        ctx.fillRect((k / bins) * W, 0, W / bins + 1, 2);
-      }
-      // zona de los tonos
-      ctx.fillStyle = 'rgba(44,182,125,0.9)';
-      for (const f of [frecuenciaTono(0) - 40, frecuenciaTono(15) + 40]) ctx.fillRect(x(f), 0, 1, 2);
+    // La fila nueva se arma en una imagen de 1 píxel de alto y se pega de una vez
+    // (antes se pintaba un rectángulo por cada frecuencia, unas 200 veces por cuadro).
+    const fila = ctx.createImageData(W, 2);
+    const zona = [x(frecuenciaTono(0) - 40), x(frecuenciaTono(15) + 40)].map(Math.round);
+    let ultimo = 0;
+    const dibujar = (ahora) => {
       animacion = requestAnimationFrame(dibujar);
+      if (ahora - ultimo < 33) return; // máximo ~30 cuadros por segundo
+      ultimo = ahora;
+      analizador.getByteFrequencyData(datos);
+      for (let px = 0; px < W; px++) {
+        const v = datos[Math.floor((px / W) * bins)] / 255;
+        const verde = px === zona[0] || px === zona[1];
+        for (let y = 0; y < 2; y++) {
+          const i = (y * W + px) * 4;
+          fila.data[i] = verde ? 44 : 20 + 235 * v;
+          fila.data[i + 1] = verde ? 182 : 12 + 90 * v * v + 140 * v ** 4;
+          fila.data[i + 2] = verde ? 125 : 40 + 120 * v;
+          fila.data[i + 3] = 255;
+        }
+      }
+      ctx.drawImage(canvas, 0, 0, W, H - 2, 0, 2, W, H - 2); // baja todo 2 píxeles
+      ctx.putImageData(fila, 0, 0);
     };
-    dibujar();
+    animacion = requestAnimationFrame(dibujar);
     return () => cancelAnimationFrame(animacion);
   }, [analizador]);
 
