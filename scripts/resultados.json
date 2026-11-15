@@ -1,0 +1,390 @@
+{
+  "berVsSnr": [
+    {
+      "snr": -30,
+      "ser": 0.8953333333333333,
+      "ber": 0.47241666666666665,
+      "serTeo": 0.8563495309511152,
+      "berTeo": 0.45671974984059477,
+      "esn0dB": -2.907300390241692
+    },
+    {
+      "snr": -28,
+      "ser": 0.8836666666666667,
+      "ber": 0.4745,
+      "serTeo": 0.805805369963298,
+      "berTeo": 0.42976286398042557,
+      "esn0dB": -0.9073003902416907
+    },
+    {
+      "snr": -26,
+      "ser": 0.8333333333333334,
+      "ber": 0.445,
+      "serTeo": 0.7241410562545079,
+      "berTeo": 0.3862085633357375,
+      "esn0dB": 1.0926996097583066
+    },
+    {
+      "snr": -24,
+      "ser": 0.7743333333333333,
+      "ber": 0.41375,
+      "serTeo": 0.5976071668696145,
+      "berTeo": 0.31872382233046104,
+      "esn0dB": 3.092699609758309
+    },
+    {
+      "snr": -22,
+      "ser": 0.6803333333333333,
+      "ber": 0.3621666666666667,
+      "serTeo": 0.4208405814807595,
+      "berTeo": 0.22444831012307173,
+      "esn0dB": 5.092699609758307
+    },
+    {
+      "snr": -20,
+      "ser": 0.532,
+      "ber": 0.2831666666666667,
+      "serTeo": 0.22130543560013463,
+      "berTeo": 0.11802956565340514,
+      "esn0dB": 7.0926996097583075
+    },
+    {
+      "snr": -18,
+      "ser": 0.35,
+      "ber": 0.18975,
+      "serTeo": 0.06897321430854889,
+      "berTeo": 0.036785714297892735,
+      "esn0dB": 9.092699609758307
+    },
+    {
+      "snr": -16,
+      "ser": 0.14666666666666667,
+      "ber": 0.07741666666666666,
+      "serTeo": 0.008732643940514321,
+      "berTeo": 0.004657410101607638,
+      "esn0dB": 11.092699609758307
+    },
+    {
+      "snr": -14,
+      "ser": 0.034,
+      "ber": 0.0175,
+      "serTeo": 0.00025166726723733536,
+      "berTeo": 0.00013422254252657887,
+      "esn0dB": 13.09269960975831
+    },
+    {
+      "snr": -12,
+      "ser": 0.0023333333333333335,
+      "ber": 0.0011666666666666668,
+      "serTeo": 7.115094728018464e-7,
+      "berTeo": 3.7947171882765144e-7,
+      "esn0dB": 15.09269960975831
+    }
+  ],
+  "mensajes": {
+    "texto": "Hola desde la CUC: datos por sonido",
+    "bytes": 35,
+    "simbolos": 132,
+    "filas": [
+      {
+        "snr": -22,
+        "exitoConCodigo": 0,
+        "todosSimbolosBien": 0,
+        "sincronia": 0
+      },
+      {
+        "snr": -20,
+        "exitoConCodigo": 0,
+        "todosSimbolosBien": 0,
+        "sincronia": 0
+      },
+      {
+        "snr": -18,
+        "exitoConCodigo": 0,
+        "todosSimbolosBien": 0,
+        "sincronia": 0.05
+      },
+      {
+        "snr": -16,
+        "exitoConCodigo": 0,
+        "todosSimbolosBien": 0,
+        "sincronia": 0.7166666666666667
+      },
+      {
+        "snr": -14,
+        "exitoConCodigo": 0.85,
+        "todosSimbolosBien": 0,
+        "sincronia": 1
+      },
+      {
+        "snr": -12,
+        "exitoConCodigo": 1,
+        "todosSimbolosBien": 0.8,
+        "sincronia": 1
+      },
+      {
+        "snr": -10,
+        "exitoConCodigo": 1,
+        "todosSimbolosBien": 1,
+        "sincronia": 1
+      }
+    ]
+  },
+  "eco": {
+    "simbolos": [
+      {
+        "drrDb": 6,
+        "rt60": 0,
+        "serConGuarda": 0,
+        "serSinGuarda": 0
+      },
+      {
+        "drrDb": 6,
+        "rt60": 0.2,
+        "serConGuarda": 0,
+        "serSinGuarda": 0
+      },
+      {
+        "drrDb": 6,
+        "rt60": 0.4,
+        "serConGuarda": 0.0013333333333333333,
+        "serSinGuarda": 0
+      },
+      {
+        "drrDb": 6,
+        "rt60": 0.6,
+        "serConGuarda": 0.002,
+        "serSinGuarda": 0.004666666666666667
+      },
+      {
+        "drrDb": 6,
+        "rt60": 0.8,
+        "serConGuarda": 0,
+        "serSinGuarda": 0
+      },
+      {
+        "drrDb": 0,
+        "rt60": 0,
+        "serConGuarda": 0,
+        "serSinGuarda": 0
+      },
+      {
+        "drrDb": 0,
+        "rt60": 0.2,
+        "serConGuarda": 0.03,
+        "serSinGuarda": 0.118
+      },
+      {
+        "drrDb": 0,
+        "rt60": 0.4,
+        "serConGuarda": 0.04666666666666667,
+        "serSinGuarda": 0.10466666666666667
+      },
+      {
+        "drrDb": 0,
+        "rt60": 0.6,
+        "serConGuarda": 0.04466666666666667,
+        "serSinGuarda": 0.068
+      },
+      {
+        "drrDb": 0,
+        "rt60": 0.8,
+        "serConGuarda": 0.032,
+        "serSinGuarda": 0.07933333333333334
+      }
+    ],
+    "mensajes": [
+      {
+        "drrDb": 6,
+        "rt60": 0.2,
+        "exito": 1,
+        "corregidosPromedio": 0.5
+      },
+      {
+        "drrDb": 6,
+        "rt60": 0.4,
+        "exito": 0.9333333333333333,
+        "corregidosPromedio": 1.6666666666666667
+      },
+      {
+        "drrDb": 6,
+        "rt60": 0.6,
+        "exito": 1,
+        "corregidosPromedio": 0.8333333333333334
+      },
+      {
+        "drrDb": 0,
+        "rt60": 0.2,
+        "exito": 0.8,
+        "corregidosPromedio": 9.633333333333333
+      },
+      {
+        "drrDb": 0,
+        "rt60": 0.4,
+        "exito": 0.3,
+        "corregidosPromedio": 24.733333333333334
+      },
+      {
+        "drrDb": 0,
+        "rt60": 0.6,
+        "exito": 0.16666666666666666,
+        "corregidosPromedio": 21.466666666666665
+      }
+    ]
+  },
+  "ventana": [
+    {
+      "n": 256,
+      "duracionMs": 21.333333333333332,
+      "bps": 187.5,
+      "separacionHz": 93.75,
+      "ser": {
+        "-20": 0.8705,
+        "-15": 0.711,
+        "-10": 0.3255
+      }
+    },
+    {
+      "n": 512,
+      "duracionMs": 32,
+      "bps": 125,
+      "separacionHz": 93.75,
+      "ser": {
+        "-20": 0.7415,
+        "-15": 0.2885,
+        "-10": 0.055
+      }
+    },
+    {
+      "n": 1024,
+      "duracionMs": 53.333333333333336,
+      "bps": 75,
+      "separacionHz": 93.75,
+      "ser": {
+        "-20": 0.5455,
+        "-15": 0.171,
+        "-10": 0.011
+      }
+    },
+    {
+      "n": 2048,
+      "duracionMs": 96,
+      "bps": 41.666666666666664,
+      "separacionHz": 93.75,
+      "ser": {
+        "-20": 0.3025,
+        "-15": 0.028,
+        "-10": 0.0025
+      }
+    }
+  ],
+  "sincronia": {
+    "ruido": {
+      "calidadMax": 5.469315331896563,
+      "rhoMax": 0.07027143755542462
+    },
+    "datos": {
+      "calidadMax": 5.261549671442972,
+      "rhoMax": 0.12443349760715584
+    },
+    "pruebasSinChirp": 160,
+    "falsasAlarmas": 0,
+    "conChirp": [
+      {
+        "snr": -24,
+        "deteccion": 0,
+        "errorMedioMuestras": null
+      },
+      {
+        "snr": -21,
+        "deteccion": 0,
+        "errorMedioMuestras": null
+      },
+      {
+        "snr": -18,
+        "deteccion": 0.016666666666666666,
+        "errorMedioMuestras": 0
+      },
+      {
+        "snr": -15,
+        "deteccion": 1,
+        "errorMedioMuestras": 0
+      },
+      {
+        "snr": -12,
+        "deteccion": 1,
+        "errorMedioMuestras": 0
+      },
+      {
+        "snr": -9,
+        "deteccion": 1,
+        "errorMedioMuestras": 0
+      },
+      {
+        "snr": -6,
+        "deteccion": 1,
+        "errorMedioMuestras": 0
+      },
+      {
+        "snr": 0,
+        "deteccion": 1,
+        "errorMedioMuestras": 0
+      }
+    ]
+  },
+  "velocidad": {
+    "bitsPorSegundoBruto": 75,
+    "anchoBanda": 1500,
+    "filas": [
+      {
+        "bytes": 1,
+        "segundos": 0.9933333333333333,
+        "bpsUtil": 8.053691275167786
+      },
+      {
+        "bytes": 5,
+        "segundos": 1.74,
+        "bpsUtil": 22.988505747126435
+      },
+      {
+        "bytes": 10,
+        "segundos": 2.7,
+        "bpsUtil": 29.629629629629626
+      },
+      {
+        "bytes": 20,
+        "segundos": 4.566666666666666,
+        "bpsUtil": 35.03649635036496
+      },
+      {
+        "bytes": 35,
+        "segundos": 7.34,
+        "bpsUtil": 38.14713896457766
+      },
+      {
+        "bytes": 60,
+        "segundos": 12.033333333333333,
+        "bpsUtil": 39.88919667590028
+      },
+      {
+        "bytes": 120,
+        "segundos": 23.233333333333334,
+        "bpsUtil": 41.31994261119082
+      }
+    ],
+    "shannon": [
+      {
+        "snrBanda": 0,
+        "capacidad": 1500
+      },
+      {
+        "snrBanda": 10,
+        "capacidad": 5189.147427955946
+      },
+      {
+        "snrBanda": 20,
+        "capacidad": 9987.317224127692
+      }
+    ]
+  }
+}

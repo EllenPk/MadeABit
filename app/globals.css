@@ -1,0 +1,498 @@
+/*
+ * globals.css — Estilos de toda la página MadeABit (mismo estilo de MadeWave)
+ * ===========================================================================
+ * Secciones (busca "---------- Nombre ----------"):
+ *   Colores y fuente · Encabezado · Pasos · Tarjetas y botones · Espectrograma ·
+ *   Mensajes recibidos · Simulador · Pie de página · Celular
+ *
+ * Para cambiar los colores de toda la página edita las variables de :root.
+ */
+
+/* ---------- Colores y fuente ---------- */
+:root {
+  --fondo: #0d0b1e;
+  --tarjeta: #18152e;
+  --borde: #2b2650;
+  --texto: #f4f2ff;
+  --suave: #a29bc9;
+  --morado: #7f5af0;
+  --rosa: #ff4d8d;
+  --verde: #2cb67d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  color: var(--texto);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(127, 90, 240, 0.35), transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(255, 77, 141, 0.25), transparent 40%),
+    var(--fondo);
+  min-height: 100vh;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+.suave {
+  color: var(--suave);
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+.mensaje {
+  color: #ffb4c8;
+  margin-top: 12px;
+}
+
+/* ---------- Encabezado ---------- */
+.encabezado {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.encabezado h1 {
+  font-size: 30px;
+  letter-spacing: -1px;
+}
+
+.encabezado h1 b {
+  background: linear-gradient(90deg, var(--morado), var(--rosa));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.encabezado p {
+  margin: 0;
+  color: var(--suave);
+  font-size: 14px;
+}
+
+/* logo: chica con audífonos (imagen circular) */
+.logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 3px rgba(255, 77, 141, 0.25), 0 6px 24px rgba(127, 90, 240, 0.45);
+}
+
+.logo-img {
+  display: block;
+  border-radius: 50%;
+}
+
+/* ---------- Pasos ---------- */
+.pasos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 28px 0 22px;
+}
+
+.paso {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.paso span {
+  color: var(--suave);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.paso-icono {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: linear-gradient(135deg, var(--morado), var(--rosa));
+}
+
+.nota {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+/* ---------- Tarjetas y botones ---------- */
+.dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: start;
+}
+
+.tarjeta {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  padding: 20px;
+  min-width: 0;
+}
+
+.tarjeta h3 {
+  font-size: 18px;
+}
+
+textarea,
+.campo {
+  width: 100%;
+  margin-top: 10px;
+  background: var(--fondo);
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 12px;
+  font: inherit;
+  font-size: 15px;
+  resize: vertical;
+}
+
+textarea:focus,
+.campo:focus {
+  outline: none;
+  border-color: var(--morado);
+}
+
+.fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.contador {
+  font-size: 13px;
+  color: var(--suave);
+}
+
+.contador.mal {
+  color: var(--rosa);
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  background: linear-gradient(135deg, var(--morado), var(--rosa));
+}
+
+.boton:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.boton.secundario {
+  background: rgba(127, 90, 240, 0.18);
+  color: #c9b8ff;
+  border: 1px solid var(--morado);
+}
+
+.boton.rojo {
+  background: #e5484d;
+}
+
+.boton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.boton input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.progreso {
+  height: 6px;
+  margin-top: 12px;
+  border-radius: 3px;
+  background: var(--borde);
+  overflow: hidden;
+}
+
+.progreso div {
+  height: 100%;
+  background: linear-gradient(90deg, var(--morado), var(--rosa));
+  transition: width 0.15s;
+}
+
+.estado {
+  margin: 12px 0 0;
+  font-size: 14px;
+}
+
+.pequeno {
+  font-size: 12px;
+}
+
+/* ---------- Espectrograma ---------- */
+.espectrograma {
+  margin-top: 14px;
+}
+
+.etiqueta {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--suave);
+  margin-bottom: 6px;
+}
+
+.espectrograma canvas {
+  display: block;
+  width: 100%;
+  height: 140px;
+  border-radius: 10px;
+  image-rendering: pixelated;
+  background: #120f26;
+}
+
+.ejes {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--suave);
+  margin-top: 4px;
+}
+
+/* medidores de volumen y de inicio (para diagnosticar) */
+.medidores {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.medidor {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  align-items: center;
+  column-gap: 10px;
+  font-size: 13px;
+}
+
+.medidor small {
+  grid-column: 2;
+  color: var(--suave);
+  font-size: 11px;
+}
+
+.barra-medidor {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--borde);
+  overflow: hidden;
+}
+
+.barra-medidor div {
+  height: 100%;
+  background: linear-gradient(90deg, var(--morado), var(--rosa));
+  transition: width 0.1s;
+}
+
+.barra-medidor i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--verde);
+}
+
+/* ---------- Mensajes recibidos ---------- */
+.mensajes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.mensaje-recibido {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--borde);
+  background: var(--fondo);
+}
+
+.mensajes .mensaje-recibido {
+  margin-top: 0;
+}
+
+.mensaje-recibido .icono {
+  font-size: 20px;
+  margin-top: 2px;
+}
+
+.mensaje-recibido.bien {
+  border-color: var(--verde);
+}
+
+.mensaje-recibido.bien .icono {
+  color: var(--verde);
+}
+
+.mensaje-recibido.mal {
+  border-color: #f5a524;
+}
+
+.mensaje-recibido.mal .icono {
+  color: #f5a524;
+}
+
+.mensaje-recibido .texto {
+  margin: 0;
+  font-size: 17px;
+  word-break: break-word;
+}
+
+.mensaje-recibido .suave {
+  margin: 4px 0 0;
+}
+
+/* ---------- Simulador ---------- */
+.deslizador {
+  display: block;
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.deslizador input {
+  width: 100%;
+  accent-color: var(--rosa);
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.chip {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--borde);
+  background: transparent;
+  color: var(--suave);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.chip.activo {
+  border-color: var(--rosa);
+  color: var(--texto);
+  background: rgba(255, 77, 141, 0.15);
+}
+
+/* ---------- Pie de página ---------- */
+.pie {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--borde);
+  text-align: center;
+}
+
+.pie-marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pie-marca h2 {
+  font-size: 24px;
+  letter-spacing: -0.5px;
+}
+
+.pie-marca h2 b {
+  background: linear-gradient(90deg, var(--morado), var(--rosa));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo.pequeno {
+  width: 40px;
+  height: 40px;
+}
+
+.eslogan {
+  margin: 8px 0 16px;
+  font-style: italic;
+  color: var(--suave);
+}
+
+.redes {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.redes span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  color: var(--texto);
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+}
+
+.derechos {
+  margin: 24px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--borde);
+  color: var(--suave);
+  font-size: 13px;
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 760px) {
+  .dos-columnas {
+    grid-template-columns: 1fr;
+  }
+  .pasos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
